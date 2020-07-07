@@ -1,0 +1,27 @@
+<header class="navbar navbar-expand navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand logo" href="#" [routerLink]="['/']">
+        Наша библиотека
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#" *access="['admin']" [routerLink]="['/add-book']">Добавить книгу</a>
+          </li>
+        </ul>
+    </div>          
+
+    <div class="user-login js-drop" style="font-size: 1.25rem;" (click)="toggleDrop()" *ngIf="userData.login">
+        <div class="userPhoto-wrapper js-drop">
+            <img class="js-drop" *ngIf="userData.photo" [src]="env + '/uploads/userphoto/'+ userData.photo">
+            <img class="js-drop" *ngIf="!userData.photo" [src]="'/assets/avatar.png'">
+        </div>    
+        <span class="js-drop"> {{userData.login}}</span>
+        <ul class="drop js-drop" [hidden]="!isShowDrop">
+            <li class="js-drop" [routerLink]="['/my-profile']">Мой профиль</li>
+            <li class="js-drop" (click)="logout()">Выйти из системы</li>
+        </ul>
+    </div>     
+</header>

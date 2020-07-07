@@ -1,0 +1,51 @@
+<section>
+    <ng-container *access="['admin']">
+        <a href="#" *ngIf="chapter" [routerLink]="['/add-lesson', book.id, chapter.id ]">Создать шаги урока</a>
+    </ng-container>
+    <div class="header-wrapper">
+        <a href="#" [routerLink]="['/book', book.id]">
+            <img [src]="pictureUrl + '/uploads/covers/' + book.picture">
+            <h3>{{book.name}}</h3>
+        </a>
+    </div>     
+    <section class="section-chapter" *ngIf="chapter && lessonParts && lessonParts.length">
+        <h4>{{chapter.name}}</h4>
+        <app-toggle [togglesCount]="lessonParts.length" (toggleActive)="changeStepActive($event)"></app-toggle>
+        <ng-container *ngFor = "let part of lessonParts; let i = index">
+            <section *ngIf="stepActive == i">
+                <a href="#" *access="['admin']" [routerLink]="['/edit-lesson', book.id, chapter.id, part.id]">Редактировать шаг</a>
+                <section [innerHTML]="part.content"></section>
+                <app-comments [entityId]="part.id"></app-comments>
+            </section>    
+        </ng-container>
+        <!--<section class="video-section" *ngIf="stepActive==0">
+            <h5>Краткое содержание</h5>
+            <video oncontextmenu='return false;' controls controlsList="nodownload">
+                <source [src]="pictureUrl + '/uploads/videos/'+ chapter.videoShort" type="video/webm">
+                <source [src]="pictureUrl + '/uploads/videos/'+ chapter.videoShort" type="video/mp4">    
+            </video>
+            <app-comments></app-comments>
+        </section>   
+
+        <section class="video-section" *ngIf="stepActive==1">
+            <h5>Читаем книгу</h5>
+            <video oncontextmenu='return false;' controls controlsList="nodownload">
+                <source [src]="pictureUrl + '/uploads/videos/'+ chapter.videoRead" type="video/webm">
+                <source [src]="pictureUrl + '/uploads/videos/'+ chapter.videoRead" type="video/mp4">    
+            </video>
+            <app-comments></app-comments>
+        </section>    
+        
+        <section class="video-section" *ngIf="stepActive==1">
+            <h5>Словарь</h5>
+            <video oncontextmenu='return false;' controls controlsList="nodownload">
+                <source [src]="pictureUrl + '/uploads/videos/'+ chapter.videoRead" type="video/webm">
+                <source [src]="pictureUrl + '/uploads/videos/'+ chapter.videoRead" type="video/mp4">    
+            </video>
+            <div>
+                
+            </div>   
+            <app-comments></app-comments>
+        </section>-->
+    </section>    
+</section>

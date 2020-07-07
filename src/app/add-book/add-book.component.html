@@ -1,0 +1,28 @@
+<form #bookForm="ngForm" (submit)="book.id? editBook(book) : addBook(book)">
+    <h3 *ngIf="!book.id">Добавить книгу в библиотеку</h3>
+    <h3 *ngIf="book.id">Редактировать книгу {{book.name}}</h3>
+    <div class="form-group">
+        <label for="name">Название книги</label>
+        <input class="form-control" [(ngModel)]="book.name" id="name" name="name" required #name="ngModel">
+        <small *ngIf="name.invalid && (name.dirty || name.touched) && name.errors.required" class="form-text error">Это обязательное поле</small>
+    </div>
+    <div class="form-group">
+        <label for="author">Автор</label>
+        <input class="form-control" [(ngModel)]="book.author" id="author" name="author" required #author="ngModel">
+        <small *ngIf="author.invalid && (author.dirty || author.touched) && author.errors.required" class="form-text error">Это обязательное поле</small>
+    </div>
+    <div class="form-group">
+        <label for="photo">Загрузить обложку</label>
+        <img *ngIf="book.picture && !tempPictureUrl && isImgPath" [src]="pictureProfileUrl + book.picture">
+        <img *ngIf="tempPictureUrl" [src]="tempPictureUrl">
+        <input class="form-control" type="file" (change)="addCover($event)" id="photo" name="photo">     
+        <small *ngIf="fileTypeError" class="form-text error">Нужно загрузить картинку. Проверьте тип файла</small>     
+    </div>
+    <div class="form-group">
+        <label for="author">Цена</label>
+        <input class="form-control" [(ngModel)]="book.price" id="price" name="price" required validateNumber pointReplacer #price="ngModel">
+        <small *ngIf="price.invalid && (price.dirty || price.touched) && price.errors.required" class="form-text error">Это обязательное поле</small>
+        <small *ngIf="price.invalid && (price.dirty || price.touched) && price.errors.numberValidator" class="form-text error">Введите корректное число</small>
+    </div>
+    <button type="submit" [disabled]="!bookForm.form.valid || isSubmitting">{{book.id? 'Отредактировать книгу':'Добавить книгу'}}</button>
+</form> 

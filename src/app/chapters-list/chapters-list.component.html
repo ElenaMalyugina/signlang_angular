@@ -1,0 +1,14 @@
+<h3>{{bookName}}</h3>
+<a class="add-chapter" href="#" *access="['admin']" [routerLink]="['/add-chapter', bookId]">Добавить главу</a>
+<section>
+    <div *ngFor="let chapter of chapters" class="book-card">
+        <a href="#" [routerLink]="['/book', bookId, 'chapter', chapter.id]">
+            <div class="img-wrapper">
+                <img *ngIf="chapter.cover" [src]="pictureUrl + '/uploads/chapterCovers/' + chapter.cover">
+                <img *ngIf="!chapter.cover" [src]="'/assets/no-cover.jpeg'">
+            </div>
+            <div>{{chapter.name}}</div>
+        </a>   
+        <a href="#" *access="['admin']" [routerLink]="['/edit-chapter', bookId, chapter.id]">Редактировать</a> 
+    </div>
+</section>

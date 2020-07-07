@@ -1,0 +1,24 @@
+<form #chapterForm="ngForm" (submit)="chapterPart.id ? editLessonPart(chapterPart) : addLessonPart(chapterPart)">
+    <h3>{{bookName}}</h3>
+    <h4 *ngIf="!chapterPart.id">Создать шаг урока</h4>
+    <h4 *ngIf="chapterPart.id">Редактировать шаг урока</h4>
+    <div class="form-group">
+        <label for="stepNumber">Номер шага</label>
+        <select  class="form-control" [(ngModel)]="chapterPart.stepNumber" name="stepNumber" id="stepNumber">
+            <option *ngFor="let step of defaultStepsArray; let i = index" [value]="i + 1">{{i + 1}}</option>
+        </select>
+    </div>
+    <p>Если Вам надо добавить видео в урок, загрузите его в следующем поле, а затем вставьте присланный URL с помощью кнопки для загрузки медиа</p>
+    <div class="form-group">
+        <label for="video">Загрузить видео в урок</label>
+        <input class="form-control" type="file" (change)="addVideo($event)" id="video" name="video"> 
+        <small *ngIf="fileTypeError" class="form-text error">Нужно загрузить картинку. Проверьте тип файла</small>  
+        <p>Ваш урл для вставки:</p>  
+        <p class="file-url">{{videoUrl}}</p>  
+        <button type="button" (click)="deleteFile()">Отменить и загрузить новый файл</button>   
+    </div>
+    <ckeditor [editor]="Editor" [config]="config" (ready)="onReady($event)" [(ngModel)]="chapterPart.content" name="test" required></ckeditor>
+    <div class="button-wrapper">
+        <button type="submit" [disabled]="!chapterForm.form.valid || isSubmitting">Отправить</button>
+    </div>    
+</form> 

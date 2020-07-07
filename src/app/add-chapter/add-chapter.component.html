@@ -1,0 +1,17 @@
+<form #chapterForm="ngForm" (submit)="chapter.id ? editChapter(chapter) : addChapter(chapter)">
+    <h3 *ngIf="!chapter.id">Добавить главу в книгу {{bookName}}</h3>
+    <h3 *ngIf="chapter.id">Редактировать главу {{chapter.name}} в книге {{bookName}}</h3>
+    <div class="form-group">
+        <label for="name">Название главы</label>
+        <input class="form-control" [(ngModel)]="chapter.name" id="name" name="name" required #name="ngModel">
+        <small *ngIf="name.invalid && (name.dirty || name.touched) && name.errors.required" class="form-text error">Это обязательное поле</small>
+    </div>
+    <div class="form-group">
+        <label for="cover">Загрузить обложку</label>
+        <img *ngIf="chapter.cover && !tempPictureUrl && isImagePath" [src]="pictureProfileUrl + chapter.cover">
+        <img *ngIf="tempPictureUrl" [src]="tempPictureUrl">
+        <input class="form-control" type="file" (change)="addCover($event)" id="cover" name="cover">  
+        <small *ngIf="fileTypeError" class="form-text error">Нужно загрузить картинку. Проверьте тип файла</small>       
+    </div>   
+    <button type="submit" [disabled]="!chapterForm.form.valid || isSubmitting">{{chapter.id ? 'Редактировать' : 'Добавить'}}</button>
+</form> 

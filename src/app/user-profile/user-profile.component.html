@@ -1,0 +1,60 @@
+<form #regForm="ngForm" (submit)="changeUserData(userData)">
+    <h3>Данные профиля</h3>
+    <div class="form-group">
+        <label for="login">Логин</label>
+        <input class="form-control" [(ngModel)]="userData.login" id="login" name="login" disabled #login="ngModel">       
+    </div>
+    <div class="form-group">
+        <label for="role">Роль</label>
+        <select class="form-control" disabled [(ngModel)]="userData.role" id="role" name="role" #role="ngModel">
+            <option value="user" >Пользователь</option>
+            <option value="admin">Администратор</option>
+        </select>
+        <small *ngIf="role.invalid && (role.dirty || role.touched) && role.errors.required" class="form-text error">Это обязательное поле</small>
+    </div>
+    <div class="form-group">
+        <label for="firstName">Имя</label>
+        <input class="form-control" [(ngModel)]="userData.firstName" id="firstName" name="firstName" required #firstName="ngModel">
+        <small *ngIf="firstName.invalid && (firstName.dirty || firstName.touched) && firstName.errors.required" class="form-text error">Это обязательное поле</small>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Фамилия</label>
+        <input class="form-control" [(ngModel)]="userData.lastName" id="lastName" name="lastName" required #lastName="ngModel">
+        <small *ngIf="lastName.invalid && (lastName.dirty || lastName.touched) && lastName.errors.required" class="form-text error">Это обязательное поле</small>
+    </div>
+
+    <div class="form-group">
+        <label for="file">Фото</label>
+        <img *ngIf="userData.photo && !tempPictureUrl && isImagePath" [src]="pictureProfileUrl + userData.photo">
+        <img *ngIf="tempPictureUrl" [src]="tempPictureUrl">
+        <input class="form-control" type="file" (change)="changePhoto($event)" id="photo" name="photo">      
+        <small *ngIf="fileTypeError" class="form-text error">Нужно загрузить картинку. Проверьте тип файла</small>              
+    </div>
+
+    <div class="button-wrapper">
+        <button type="submit" [disabled]="!regForm.form.valid || isSubmitting">Сохранить</button>
+    </div>
+<form>    
+
+
+
+<div class="form-group">
+    <button type="button" (click)="togglePasswordSection()">Изменить пароль</button>
+    <form #passForm="ngForm" *ngIf="isPasswordSectionOpen" (submit)="changePassword(passFormData)">
+        <div class="form-group">
+            <label for="oldPassword">Старый пароль</label>
+            <input class="form-control" type="password" [(ngModel)]="passFormData.oldPassword" id="oldPassword" name="oldPassword" required #oldPassword="ngModel">
+            <small *ngIf="oldPassword.invalid && (oldPassword.dirty || oldPassword.touched) && oldPassword.errors.required" class="form-text error">Это обязательное поле</small>
+        </div> 
+        <div class="form-group">
+            <label for="newPassword">Новый пароль</label>
+            <input class="form-control" type="password" [(ngModel)]="passFormData.newPassword" id="newPassword" name="newPassword" required #newPassword="ngModel">
+            <small *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched) && newPassword.errors.required" class="form-text error">Это обязательное поле</small>
+        </div>    
+        <button type="submit" [disabled]="!passForm.form.valid || isSubmitting">Изменить пароль</button>
+    </form>       
+</div>
+    
+  
+
+

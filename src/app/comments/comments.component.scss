@@ -1,0 +1,68 @@
+.comments-section{
+    width: 40%;
+}
+
+button{
+    display: block;
+}
+
+.section-chapter{
+    margin-bottom: 40px;
+}
+
+textarea{
+    width: 40%;
+}
+
+.user-profile{
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    p{
+        margin: 0 10px;
+    }
+}
+
+.user-foto{
+    width: 30px;
+}
+
+.comments-wrapper{
+    margin-bottom: 40px;
+}
+
+.comment{
+    //width: 40%;
+    padding: 10px;
+    border-bottom: 1px solid #bbb;
+}
+
+@media(max-width:992px){
+    .comments-section{
+        width: 60%;
+    }
+}
+
+@media(max-width:767px){
+    .comments-section{
+        width: 80%;
+    }
+}
+
+@media(max-width:480px){
+    .comments-section{
+        width: 100%;
+    }
+}
+
+ckeditor::ng-deep .ck-editor__editable{
+    min-height: 10vh;
+}
+
+.button-wrapper{
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+

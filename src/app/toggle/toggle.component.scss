@@ -1,0 +1,13 @@
+button{
+   margin-left: 10px;
+    &.active{
+        background: #e3f2fd;
+    }
+}
+
+.toggles-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

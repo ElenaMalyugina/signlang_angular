@@ -1,0 +1,5 @@
+<div class="toggles-wrapper">
+    <button *ngFor="let toggle of toggles" (click)="changeButtonActive(toggle.step)" [class.active]="toggle.isActive">
+        шаг {{toggle.step + 1}}
+    </button>
+</div>

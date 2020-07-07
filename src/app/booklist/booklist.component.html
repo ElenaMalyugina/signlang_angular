@@ -1,0 +1,32 @@
+<h3>Все книги</h3>
+<section>
+    <div *ngFor="let book of books" class="book-card">
+        <a *access="['admin']" href="#" [routerLink]="['/book', book.id]">
+            <ng-container *ngTemplateOutlet="bookCard;context:{book:book}"></ng-container>
+        </a>
+        <ng-container *access="['user']">
+            <div *ngIf="!book.isBought">
+                <ng-container *ngTemplateOutlet="bookCard;context:{book:book}"></ng-container>
+            </div>
+            <a *ngIf="book.isBought" href="#" [routerLink]="['/book', book.id]">
+                <ng-container *ngTemplateOutlet="bookCard;context:{book:book}"></ng-container>
+            </a>
+        </ng-container>    
+        <a href="#" [routerLink]="['/edit-book', book.id]" *access="['admin']">Отредактировать книгу</a>   
+        <ng-container *access="['user']"> 
+            <button *ngIf="!book.isBought" (click)="buyBook(book.id)">Купить книгу</button>
+            <p *ngIf="book.isBought">Книга доступна</p>
+        </ng-container>    
+    </div>
+</section>
+
+<!--шаблон-->
+<ng-template #bookCard let-book="book">
+    <div class="img-wrapper">
+        <img *ngIf="book.picture" [src]="pictureUrl + '/uploads/covers/' + book.picture">
+        <img *ngIf="!book.picture" [src]="'/assets/no-cover.jpeg'">
+    </div>
+    <div>{{book.name}}</div>
+    <div>{{book.author}}</div>
+    <div>{{book.price}} &#8381;</div>
+</ng-template>

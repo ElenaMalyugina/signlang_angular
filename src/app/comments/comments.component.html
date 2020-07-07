@@ -1,0 +1,21 @@
+<section class="comments-section">
+    <h4>Комментарии</h4>
+    <div class="comments-wrapper">
+        <div class="comment" *ngFor="let comment of comments">
+            <div class="user-profile">
+                <img class="user-foto" [src]="pictureUrl + '/uploads/userphoto/'+comment.photo" alt="">
+                <p>{{comment.login}}</p>
+            </div>    
+            <p [innerHTML]="comment.commentText"></p>
+        </div> 
+        <p *ngIf="!comments.length">Пока комментариев нет</p>
+    </div>             
+    <form #form="ngForm" novalidate (submit)="addComment()">
+        <h5>Добавить комментарий</h5>
+        <!--<textarea [(ngModel)]="newCommment" name="newCommment" required></textarea>-->
+        <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="newCommment" name="comment" required></ckeditor>
+        <div class="button-wrapper">
+            <button [disabled]="!form.valid">Отправить</button>
+        </div>    
+    </form>
+</section>    
